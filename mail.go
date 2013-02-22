@@ -21,6 +21,10 @@ type Message struct {
 	Body    string
 }
 
+func NewMessage() *Message {
+	return &Message{}
+}
+
 // Bytes returns the []byte representation of the message
 func (msg *Message) Bytes() []byte {
 	var b bytes.Buffer
