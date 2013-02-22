@@ -47,6 +47,22 @@ func (msg *Message) Bytes() []byte {
 	return b.Bytes()
 }
 
+func (msg *Message) SetFrom(name, email string) {
+	msg.From = mail.Address{name, email}
+}
+
+func (msg *Message) AddTo(name, email string) {
+	msg.To = append(msg.To, mail.Address{name, email})
+}
+
+func (msg *Message) AddCc(name, email string) {
+	msg.Cc = append(msg.Cc, mail.Address{name, email})
+}
+
+func (msg *Message) AddBcc(name, email string) {
+	msg.Bcc = append(msg.Bcc, mail.Address{name, email})
+}
+
 // String returns the string representation of the message
 func (msg *Message) String() string {
 	return string(msg.Bytes())

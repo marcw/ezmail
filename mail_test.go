@@ -13,12 +13,11 @@ import (
 func TestMessage(t *testing.T) {
 	msg := &Message{}
 
-	msg.From = mail.Address{Name: "Marc Weistroff", Address: "marc+from@weistroff.net"}
-	msg.To = []mail.Address{mail.Address{Name: "Marc Weistroff", Address: "marc+to@weistroff.net"},
-		mail.Address{Name: "Foo Bar", Address: "foo@example.org"}}
-
-	msg.Cc = []mail.Address{mail.Address{Name: "Bar Foo", Address: "bar@example.org"}}
-	msg.Bcc = []mail.Address{mail.Address{Name: "The Boss", Address: "boss@example.org"}}
+	msg.SetFrom("Marc Weistroff", "marc+from@weistroff.net")
+	msg.AddTo("Marc Weistroff", "marc+to@weistroff.net")
+	msg.AddTo("Foo Bar", "foo@example.org")
+	msg.AddCc("Bar Foo", "bar@example.org")
+	msg.AddBcc("The Boss", "boss@example.org")
 	msg.Subject = "Lorem ipsum gollum"
 	msg.Body = `Oy Mate!
 Wanna drink a beer tonight?
