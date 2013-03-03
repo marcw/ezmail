@@ -68,6 +68,15 @@ func (msg *Message) String() string {
 	return string(msg.Bytes())
 }
 
+func (msg *Message) Recipients() []string {
+	var r []string
+	for _, v := range msg.To {
+		r = append(r, v.String())
+	}
+
+	return r
+}
+
 func listToString(addresses []mail.Address) string {
 	var list []string
 
