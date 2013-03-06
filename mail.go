@@ -12,7 +12,17 @@ import (
 	"strings"
 )
 
-// A Message represents the most basic electronic message
+// A Message represents an electronic message
+// Usage:
+// msg := ezmail.Message{}
+// msg.SetFrom("Marc Weistroff", "marc@example.org")
+// msg.AddTo("Recipient 1", "recipient1@example.org")
+// msg.AddTo("", "foobar@example.org")
+// msg.AddCC("", "cc@example.org")
+// msg.Subject = "Hey, message subject"
+// msg.Body = "plain text body"
+// smtp.SendMail(addr, auth, msg.From.String(), msg.Recipients(), msg.Bytes())
+//
 type Message struct {
 	From        mail.Address
 	To, Cc, Bcc []mail.Address
@@ -68,6 +78,7 @@ func (msg *Message) String() string {
 	return string(msg.Bytes())
 }
 
+// Returns list of recipients needed by net/smtp SendMail function
 func (msg *Message) Recipients() []string {
 	var r []string
 	for _, v := range msg.To {
