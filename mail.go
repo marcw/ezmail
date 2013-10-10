@@ -78,11 +78,21 @@ func (msg *Message) String() string {
 	return string(msg.Bytes())
 }
 
-// Returns list of recipients needed by net/smtp SendMail function
+// Returns list of recipients (Format: "Recipient Name <recipientemail@example.com>")
 func (msg *Message) Recipients() []string {
 	var r []string
 	for _, v := range msg.To {
 		r = append(r, v.String())
+	}
+
+	return r
+}
+
+// Returns list of recipient email addresses
+func (msg *Message) RecipientsEmails() []string {
+	var r []string
+	for _, v := range msg.To {
+		r = append(r, v.Address)
 	}
 
 	return r
