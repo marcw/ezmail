@@ -21,6 +21,7 @@ import (
 // msg.AddCC("", "cc@example.org")
 // msg.Subject = "Hey, message subject"
 // msg.Body = "plain text body"
+// msg.Headers["Content-Type"] = "text/plain"
 // smtp.SendMail(addr, auth, msg.From.String(), msg.Recipients(), msg.Bytes())
 //
 type Message struct {
@@ -29,10 +30,12 @@ type Message struct {
 
 	Subject string
 	Body    string
+	
+	Headers map[string]string
 }
 
 func NewMessage() *Message {
-	return &Message{}
+	return &Message{Headers:map[string]string{}}
 }
 
 // Bytes returns the []byte representation of the message
@@ -48,6 +51,10 @@ func (msg *Message) Bytes() []byte {
 	}
 	if len(msg.Bcc) > 0 {
 		b.WriteString(fmt.Sprintln("Bcc:", listToString(msg.Bcc)))
+	}
+	
+	for k, v := range msg.Headers {
+	    b.WriteString(fmt.Sprintf("%s:%s\n", k, v))
 	}
 
 	b.WriteString(fmt.Sprintln("Subject:", msg.Subject))
